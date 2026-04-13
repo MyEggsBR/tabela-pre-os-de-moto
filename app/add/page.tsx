@@ -121,7 +121,7 @@ export default function AddMotorcycle() {
         </div>
       </header>
 
-      <main className="max-w-md mx-auto px-6 pt-8 pb-12 space-y-8 w-full">
+      <main className="max-w-md mx-auto px-6 pt-8 pb-32 space-y-8 w-full">
         <section className="space-y-2">
           <h2 className="text-2xl font-extrabold font-headline tracking-tighter text-on-surface">Cadastro de Produto</h2>
           <p className="text-on-surface-variant text-sm font-medium leading-relaxed">Insira as especificações técnicas da motocicleta para o catálogo de fornecedores.</p>

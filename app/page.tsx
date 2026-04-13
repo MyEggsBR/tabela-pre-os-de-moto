@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Menu, Plus, Package } from 'lucide-react';
+import { Plus, Package } from 'lucide-react';
 import { LogoutButton } from '@/components/LogoutButton';
 
 export default function Dashboard() {
@@ -7,7 +7,6 @@ export default function Dashboard() {
     <>
       <header className="w-full top-0 sticky bg-slate-50/90 dark:bg-slate-950/90 backdrop-blur-md flex justify-between items-center px-6 py-4 z-40">
         <div className="flex items-center gap-4">
-          <Menu className="text-primary" />
           <h1 className="text-2xl font-extrabold font-headline tracking-tighter text-primary">Sourcing</h1>
         </div>
         <LogoutButton />

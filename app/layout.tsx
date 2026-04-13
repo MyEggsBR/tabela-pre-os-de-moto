@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Manrope, Inter } from 'next/font/google';
 import './globals.css';
-import { BottomNav } from '@/components/BottomNav';
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -21,9 +20,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" className={`${manrope.variable} ${inter.variable}`}>
-      <body className="bg-surface font-body text-on-surface min-h-screen antialiased flex flex-col pb-24" suppressHydrationWarning>
+      <body className="bg-surface font-body text-on-surface min-h-screen antialiased flex flex-col" suppressHydrationWarning>
         {children}
-        <BottomNav />
       </body>
     </html>
   );

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Menu, Search, SlidersHorizontal, Trash2, Edit } from 'lucide-react';
+import { Search, SlidersHorizontal, Trash2, Edit, ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -53,8 +53,10 @@ export default function Inventory() {
     <>
       <header className="w-full top-0 sticky z-40 bg-slate-50/90 dark:bg-slate-950/90 backdrop-blur-md flex justify-between items-center px-6 py-4">
         <div className="flex items-center gap-4">
-          <Menu className="text-primary" />
-          <h1 className="text-xl font-bold font-headline text-primary">Sourcing</h1>
+          <Link href="/" className="text-primary">
+            <ArrowLeft size={24} />
+          </Link>
+          <h1 className="text-xl font-bold font-headline text-primary">Estoque</h1>
         </div>
         <LogoutButton />
       </header>
