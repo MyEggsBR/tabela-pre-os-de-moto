@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Menu, Plus, Package } from 'lucide-react';
-import Image from 'next/image';
+import { LogoutButton } from '@/components/LogoutButton';
 
 export default function Dashboard() {
   return (
@@ -10,15 +10,7 @@ export default function Dashboard() {
           <Menu className="text-primary" />
           <h1 className="text-2xl font-extrabold font-headline tracking-tighter text-primary">Sourcing</h1>
         </div>
-        <div className="w-10 h-10 rounded-full bg-surface-container overflow-hidden ring-2 ring-primary/10 relative">
-          <Image 
-            src="https://picsum.photos/seed/user/100/100" 
-            alt="Perfil" 
-            fill
-            className="object-cover"
-            referrerPolicy="no-referrer"
-          />
-        </div>
+        <LogoutButton />
       </header>
 
       <main className="flex-1 flex flex-col px-6 pt-12 max-w-2xl mx-auto w-full gap-8">
@@ -49,18 +41,6 @@ export default function Dashboard() {
               <p className="text-sm font-body text-on-surface-variant mt-1">Visualizar e gerenciar inventário</p>
             </div>
           </Link>
-        </div>
-
-        <div className="bg-surface-container-low rounded-xl p-6 flex items-center justify-between mt-4">
-          <div>
-            <p className="text-xs font-semibold text-on-surface-variant uppercase tracking-wider mb-1">Status do Mês</p>
-            <p className="text-lg font-bold font-headline text-on-surface">12 Novas Cotações</p>
-          </div>
-          <div className="flex -space-x-2">
-            <div className="w-8 h-8 rounded-full border-2 border-surface bg-slate-300"></div>
-            <div className="w-8 h-8 rounded-full border-2 border-surface bg-slate-400"></div>
-            <div className="w-8 h-8 rounded-full border-2 border-surface bg-primary text-[10px] flex items-center justify-center text-white font-bold">+4</div>
-          </div>
         </div>
       </main>
     </>

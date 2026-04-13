@@ -5,6 +5,8 @@ import { Menu, Search, SlidersHorizontal, Trash2, Edit } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { LogoutButton } from '@/components/LogoutButton';
+
 type Motorcycle = {
   id: string;
   brandModel: string;
@@ -54,15 +56,7 @@ export default function Inventory() {
           <Menu className="text-primary" />
           <h1 className="text-xl font-bold font-headline text-primary">Sourcing</h1>
         </div>
-        <div className="w-10 h-10 rounded-full bg-surface-container overflow-hidden ring-2 ring-primary/10 relative">
-          <Image 
-            src="https://picsum.photos/seed/user/100/100" 
-            alt="Perfil" 
-            fill
-            className="object-cover"
-            referrerPolicy="no-referrer"
-          />
-        </div>
+        <LogoutButton />
       </header>
 
       <main className="max-w-md mx-auto px-6 pt-8 pb-32">

@@ -155,18 +155,9 @@ export default function EditMotorcycle({ params }: { params: Promise<{ id: strin
           </Link>
           <h1 className="text-xl font-bold font-headline text-primary">Sourcing</h1>
         </div>
-        <div className="w-10 h-10 rounded-full bg-surface-container overflow-hidden ring-2 ring-primary/10 relative">
-          <Image 
-            src="https://picsum.photos/seed/user/100/100" 
-            alt="Perfil" 
-            fill
-            className="object-cover"
-            referrerPolicy="no-referrer"
-          />
-        </div>
       </header>
 
-      <main className="max-w-md mx-auto px-6 pt-8 pb-32 space-y-8 w-full">
+      <main className="max-w-md mx-auto px-6 pt-8 pb-12 space-y-8 w-full">
         <section className="space-y-2">
           <h2 className="text-2xl font-extrabold font-headline tracking-tighter text-on-surface">Editar Produto</h2>
           <p className="text-on-surface-variant text-sm font-medium leading-relaxed">Atualize as especificações técnicas da motocicleta.</p>
@@ -188,7 +179,6 @@ export default function EditMotorcycle({ params }: { params: Promise<{ id: strin
             <input 
               type="file" 
               accept="image/*" 
-              capture="environment" 
               className="hidden" 
               ref={frontInputRef}
               onChange={(e) => handleImageChange('front', e)}
@@ -210,7 +200,6 @@ export default function EditMotorcycle({ params }: { params: Promise<{ id: strin
             <input 
               type="file" 
               accept="image/*" 
-              capture="environment" 
               className="hidden" 
               ref={sideInputRef}
               onChange={(e) => handleImageChange('side', e)}
@@ -334,20 +323,17 @@ export default function EditMotorcycle({ params }: { params: Promise<{ id: strin
               />
             </div>
           </div>
+
+          <button 
+            type="submit"
+            disabled={loading}
+            className="w-full mt-8 bg-gradient-to-r from-primary to-primary-dim text-on-primary font-bold font-headline py-4 rounded-xl shadow-lg active:scale-[0.98] transition-transform flex items-center justify-center gap-2 disabled:opacity-70"
+          >
+            <Save size={20} />
+            {loading ? 'Salvando...' : 'Salvar Alterações'}
+          </button>
         </form>
       </main>
-
-      <footer className="fixed bottom-0 left-0 w-full glass-panel pt-4 pb-8 px-6 z-50">
-        <button 
-          type="submit"
-          form="edit-form"
-          disabled={loading}
-          className="w-full bg-gradient-to-r from-primary to-primary-dim text-on-primary font-bold font-headline py-4 rounded-xl shadow-lg active:scale-[0.98] transition-transform flex items-center justify-center gap-2 disabled:opacity-70"
-        >
-          <Save size={20} />
-          {loading ? 'Salvando...' : 'Salvar Alterações'}
-        </button>
-      </footer>
     </>
   );
 }
