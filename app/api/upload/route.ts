@@ -28,7 +28,9 @@ export async function POST(request: Request) {
     // The public URL where the file will be accessible after upload
     // Note: In a real setup, MinIO needs to be configured for public read access on this bucket
     // or we need to generate presigned GET URLs later. Assuming public read for simplicity here.
-    const publicUrl = `${process.env.MINIO_ENDPOINT ? `http://${process.env.MINIO_ENDPOINT}:${process.env.MINIO_PORT}` : 'http://localhost:9000'}/${BUCKET_NAME}/${objectName}`;
+    const protocol = process.env.MINIO_USE_SSL === 'true' ? 'https' : 'http';
+    const portString = process.env.MINIO_PORT && process.env.MINIO_PORT !== '80' && process.env.MINIO_PORT !== '443' ? `:${process.env.MINIO_PORT}` : '';
+    const publicUrl = `${process.env.MINIO_ENDPOINT ? `${protocol}://${process.env.MINIO_ENDPOINT}${portString}` : 'http://localhost:9000'}/${BUCKET_NAME}/${objectName}`;
 
     return NextResponse.json({ presignedUrl, publicUrl, objectName });
   } catch (error) {
