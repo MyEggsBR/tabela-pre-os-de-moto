@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Menu, Search, SlidersHorizontal, ChevronRight } from 'lucide-react';
+import { Menu, Search, SlidersHorizontal, Trash2, Edit } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 type Motorcycle = {
   id: string;
@@ -28,6 +29,23 @@ export default function Inventory() {
       .catch(console.error)
       .finally(() => setLoading(false));
   }, []);
+
+  const handleDelete = async (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (window.confirm('Tem certeza que deseja excluir esta moto?')) {
+      try {
+        const res = await fetch(`/api/motorcycles/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          setMotorcycles((prev) => prev.filter((m) => m.id !== id));
+        } else {
+          alert('Erro ao excluir a moto.');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Erro de conexão ao tentar excluir.');
+      }
+    }
+  };
 
   return (
     <>
@@ -93,7 +111,21 @@ export default function Inventory() {
                   </div>
                   <p className="text-xs text-on-surface-variant mt-1 font-medium">R$ {moto.retailPrice || '0,00'}</p>
                 </div>
-                <ChevronRight className="text-outline group-hover:translate-x-1 transition-transform" size={20} />
+                <div className="flex items-center gap-1 ml-2">
+                  <Link 
+                    href={`/edit/${moto.id}`} 
+                    className="p-2 text-outline hover:text-primary transition-colors rounded-full hover:bg-primary/10"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Edit size={18} />
+                  </Link>
+                  <button 
+                    onClick={(e) => handleDelete(moto.id, e)} 
+                    className="p-2 text-outline hover:text-error transition-colors rounded-full hover:bg-error/10"
+                  >
+                    <Trash2 size={18} />
+                  </button>
+                </div>
               </div>
             ))
           )}
