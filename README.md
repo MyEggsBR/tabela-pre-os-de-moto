@@ -1,63 +1,20 @@
-# 🏍️ Trivolts Motors — Curadoria de Motos Elétricas
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+</div>
 
-Ferramenta interna para catalogar motos elétricas durante visitas a fornecedores.
+# Run and deploy your AI Studio app
 
----
+This contains everything you need to run your app locally.
 
-## 🚀 Configuração Local
+View your app in AI Studio: https://ai.studio/apps/09c863d5-f0ed-4421-85f8-6c28f4ec951c
 
-```bash
-npm install
-cp .env.example .env
-npm run db:push
-npm run dev
-```
+## Run Locally
 
-Acesse: http://localhost:3000
+**Prerequisites:**  Node.js
 
----
 
-## 🐳 Deploy no Easypanel
-
-Configure as variáveis de ambiente no painel do Easypanel:
-
-| Variável | Descrição |
-|---|---|
-| DATABASE_URL | String de conexão PostgreSQL |
-| MINIO_ENDPOINT | Host do servidor MinIO |
-| MINIO_PORT | Porta do MinIO (padrão: 9000) |
-| MINIO_USE_SSL | true ou false |
-| MINIO_ACCESS_KEY | Access Key do MinIO |
-| MINIO_SECRET_KEY | Secret Key do MinIO |
-| MINIO_BUCKET_NAME | Nome do bucket (ex: trivolts-motos) |
-
-O Dockerfile multi-stage já está configurado e roda `prisma db push` automaticamente no startup.
-
----
-
-## 📦 Funcionalidades
-
-| Feature | Status |
-|---|---|
-| Tabela responsiva com busca | ✅ |
-| Cadastro com câmera (capture=environment) | ✅ |
-| Upload de 2 fotos por moto via MinIO | ✅ |
-| Exportar PDF com fotos | ✅ |
-| Exportar Excel estilizado | ✅ |
-| Toast em PT-BR após salvar | ✅ |
-| Redirect automático ao dashboard | ✅ |
-| Interface 100% PT-BR | ✅ |
-| Mobile-friendly | ✅ |
-
----
-
-## 🛠️ Stack
-
-- **Framework**: Next.js 14 (App Router)
-- **Banco**: PostgreSQL via Prisma ORM
-- **Storage**: MinIO S3-compatible
-- **UI**: shadcn/ui + Tailwind CSS
-- **Exportação**: jspdf, jspdf-autotable, exceljs
-- **Deploy**: Docker multi-stage + Easypanel
-
-> Desenvolvido para uso interno da Trivolts Motors.
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`

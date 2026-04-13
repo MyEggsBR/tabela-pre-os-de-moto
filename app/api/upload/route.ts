@@ -1,25 +1,38 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { uploadToMinio } from '@/lib/minio'
-import { v4 as uuidv4 } from 'uuid'
+import { NextResponse } from 'next/server';
+import { getMinioClient, BUCKET_NAME } from '@/lib/minio';
+import { v4 as uuidv4 } from 'uuid';
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
-    const formData = await request.formData()
-    const urls: string[] = []
-    const foto1 = formData.get('foto1') as File | null
-    const foto2 = formData.get('foto2') as File | null
-    const fotos = [foto1, foto2].filter(Boolean) as File[]
-    for (const foto of fotos) {
-      const bytes = await foto.arrayBuffer()
-      const buffer = Buffer.from(bytes)
-      const ext = foto.name.split('.').pop() || 'jpg'
-      const objectName = `motos/${uuidv4()}.${ext}`
-      const url = await uploadToMinio(buffer, objectName, foto.type || 'image/jpeg')
-      urls.push(url)
+    const { filename, contentType } = await request.json();
+
+    if (!filename || !contentType) {
+      return NextResponse.json({ error: 'Filename and contentType are required' }, { status: 400 });
     }
-    return NextResponse.json({ urls })
+
+    const minioClient = getMinioClient();
+    
+    // Ensure bucket exists (in a real app, do this on startup or via migrations)
+    const bucketExists = await minioClient.bucketExists(BUCKET_NAME).catch(() => false);
+    if (!bucketExists) {
+      // Attempt to create, might fail if no permissions, but we try
+      await minioClient.makeBucket(BUCKET_NAME, 'us-east-1').catch(console.error);
+    }
+
+    const ext = filename.split('.').pop();
+    const objectName = `${uuidv4()}.${ext}`;
+
+    // Generate presigned URL for PUT request (valid for 5 minutes)
+    const presignedUrl = await minioClient.presignedPutObject(BUCKET_NAME, objectName, 5 * 60);
+
+    // The public URL where the file will be accessible after upload
+    // Note: In a real setup, MinIO needs to be configured for public read access on this bucket
+    // or we need to generate presigned GET URLs later. Assuming public read for simplicity here.
+    const publicUrl = `${process.env.MINIO_ENDPOINT ? `http://${process.env.MINIO_ENDPOINT}:${process.env.MINIO_PORT}` : 'http://localhost:9000'}/${BUCKET_NAME}/${objectName}`;
+
+    return NextResponse.json({ presignedUrl, publicUrl, objectName });
   } catch (error) {
-    console.error('Erro no upload:', error)
-    return NextResponse.json({ error: 'Erro ao fazer upload das imagens.' }, { status: 500 })
+    console.error('Error generating presigned URL:', error);
+    return NextResponse.json({ error: 'Failed to generate upload URL' }, { status: 500 });
   }
 }
