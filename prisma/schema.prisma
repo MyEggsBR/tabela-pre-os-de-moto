@@ -7,18 +7,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Motorcycle {
-  id              String   @id @default(uuid())
-  brandModel      String
-  power           String
-  batteryType     String
-  batteryCapacity String
-  tireSize        String
-  retailPrice     String
-  wholesalePrice  String
-  minWholesaleQty String
-  notes           String?
-  imageUrl1       String?
-  imageUrl2       String?
-  createdAt       DateTime @default(now())
+model Moto {
+  id               Int      @id @default(autoincrement())
+  marca            String
+  modelo           String
+  potencia         String?
+  precoVarejo      Float?
+  precoAtacado     Float?
+  qtdMinimaAtacado Int?
+  autonomia        String?
+  peso             String?
+  cargaMaxima      String?
+  tempoRecarga     String?
+  voltagem         String?
+  observacoes      String?
+  fotoUrl1         String?
+  fotoUrl2         String?
+  criadoEm         DateTime @default(now())
+  atualizadoEm     DateTime @updatedAt
+
+  @@map("motos")
 }
