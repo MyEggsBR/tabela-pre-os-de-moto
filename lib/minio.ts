@@ -11,6 +11,9 @@ export function getMinioClient(): Minio.Client {
       useSSL: process.env.MINIO_USE_SSL === 'true',
       accessKey: process.env.MINIO_ACCESS_KEY || 'minioadmin',
       secretKey: process.env.MINIO_SECRET_KEY || 'minioadmin',
+      // Easypanel/Docker setups often require path style addressing
+      // instead of virtual host style (bucket.domain.com)
+      pathStyle: true,
     });
   }
   return minioClientInstance;

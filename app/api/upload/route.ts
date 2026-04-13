@@ -29,7 +29,10 @@ export async function POST(request: Request) {
     // Note: In a real setup, MinIO needs to be configured for public read access on this bucket
     // or we need to generate presigned GET URLs later. Assuming public read for simplicity here.
     const protocol = process.env.MINIO_USE_SSL === 'true' ? 'https' : 'http';
+    // For Easypanel, we usually don't append the port if it's 443 or 80
     const portString = process.env.MINIO_PORT && process.env.MINIO_PORT !== '80' && process.env.MINIO_PORT !== '443' ? `:${process.env.MINIO_PORT}` : '';
+    
+    // Path style URL: https://endpoint/bucket/object
     const publicUrl = `${process.env.MINIO_ENDPOINT ? `${protocol}://${process.env.MINIO_ENDPOINT}${portString}` : 'http://localhost:9000'}/${BUCKET_NAME}/${objectName}`;
 
     return NextResponse.json({ presignedUrl, publicUrl, objectName });
