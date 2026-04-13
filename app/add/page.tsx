@@ -100,11 +100,12 @@ export default function AddMotorcycle() {
       if (res.ok) {
         router.push('/inventory');
       } else {
-        alert('Erro ao salvar motocicleta');
+        const errorData = await res.json();
+        alert(`Erro ao salvar motocicleta: ${errorData.details || errorData.error}`);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      alert('Erro de conexão');
+      alert(`Erro de conexão: ${error.message}`);
     } finally {
       setLoading(false);
     }

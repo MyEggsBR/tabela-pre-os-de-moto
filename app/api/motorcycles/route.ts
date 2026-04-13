@@ -22,9 +22,12 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(motorcycle, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error creating motorcycle:', error);
-    return NextResponse.json({ error: 'Failed to create motorcycle' }, { status: 500 });
+    return NextResponse.json({ 
+      error: 'Failed to create motorcycle', 
+      details: error?.message || String(error) 
+    }, { status: 500 });
   }
 }
 
